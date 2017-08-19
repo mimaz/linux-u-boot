@@ -8,6 +8,8 @@
 
 #include "rockchip-common.h"
 
+#define CONFIG_MISC_INIT_R
+
 #define CONFIG_IRAM_BASE		0xff090000
 
 #define CONFIG_ROCKCHIP_STIMER_BASE    0xff1d0020
