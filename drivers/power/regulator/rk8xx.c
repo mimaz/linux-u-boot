@@ -116,6 +116,7 @@ static const struct rk8xx_reg_info *get_buck_reg(struct udevice *pmic,
 	struct rk8xx_priv *priv = dev_get_priv(pmic);
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		switch (num) {
 		case 0:
@@ -158,6 +159,7 @@ static int _buck_get_enable(struct udevice *pmic, int buck)
 	int ret = 0;
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		if (buck >= 4) {
 			mask = 1 << (buck - 4);
@@ -186,6 +188,7 @@ static int _buck_set_enable(struct udevice *pmic, int buck, bool enable)
 	struct rk8xx_priv *priv = dev_get_priv(pmic);
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		if (buck >= 4) {
 			buck -= 4;
@@ -230,6 +233,7 @@ static const struct rk8xx_reg_info *get_ldo_reg(struct udevice *pmic,
 	struct rk8xx_priv *priv = dev_get_priv(pmic);
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		return &rk816_ldo[num];
 	case RK818_ID:
@@ -246,6 +250,7 @@ static int _ldo_get_enable(struct udevice *pmic, int ldo)
 	int ret = 0;
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		if (ldo >= 4) {
 			mask = 1 << (ldo - 4);
@@ -274,6 +279,7 @@ static int _ldo_set_enable(struct udevice *pmic, int ldo, bool enable)
 	int ret = 0;
 
 	switch (priv->variant) {
+	case RK805_ID:
 	case RK816_ID:
 		if (ldo >= 4) {
 			ldo -= 4;
