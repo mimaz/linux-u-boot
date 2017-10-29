@@ -59,4 +59,7 @@ extern const char * const boot_devices[BROM_LAST_BOOTSOURCE + 1];
  */
 #define BROM_BOOTSOURCE_ID_ADDR   (CONFIG_IRAM_BASE + 0x10)
 
+#define RK3328_BROM_BOOTSOURCE_ID_ADDR   0xff090010
+#define RK3399_BROM_BOOTSOURCE_ID_ADDR   0xff8c0010
+
 #endif
