@@ -99,15 +99,15 @@
 };
 
 &u2phy {
-        status = "okay";
+	status = "okay";
 };
 
 &u2phy_otg {
-        status = "okay";
+	status = "okay";
 };
 
 &u2phy_host {
-        status = "okay";
+	status = "okay";
 };
 
 &usb_host0_ehci {
