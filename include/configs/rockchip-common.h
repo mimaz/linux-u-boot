@@ -59,4 +59,11 @@
 
 #endif
 
+/*
+ * Rockchip SoCs use fixed ENV 32KB@(4MB-32KB)
+ */
+#define CONFIG_ENV_SECT_SIZE SZ_4K
+
+#define CONFIG_DISPLAY_BOARDINFO_LATE
+
 #endif /* _ROCKCHIP_COMMON_H_ */
