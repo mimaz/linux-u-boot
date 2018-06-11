@@ -10,6 +10,8 @@ if [ -z "$BL31" ] || [ ! -e "$BL31" ]; then
 	exit 1
 fi
 
+#tools/mkimage -n rk3399 -T rksd -d spl/u-boot-spl.bin idbspl.img
+
 cat << __HEADER_EOF
 /dts-v1/;
 
@@ -41,7 +43,7 @@ do
 
 	#echo "$offset/$phy_offset/$filesz"
 
-	of=bl31_${phy_offset}.bin
+	of=rk3399bl31_${phy_offset}.bin
 	dd if=$BL31 of=$of bs=1 skip=$offset count=$filesz
 
 	out_string="${out_string}:${phy_offset}"
@@ -95,7 +97,7 @@ do
 		config@$cnt {
 			description = "$(basename $dtname .dtb)";
 			firmware = "atf@1";
-			loadables = "uboot@1","atf@2";
+			loadables = "uboot@1","atf@2","atf@3";
 			fdt = "fdt@1";
 		};
 __CONF_SECTION_EOF
