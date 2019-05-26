@@ -48,6 +48,12 @@ case "$PACKAGE_NAME" in
         BOARD=pinebookpro
         ;;
 
+    *-rockchip-rockpi4b-*)
+        SD_LOADER=/usr/lib/u-boot-rockpi4b/rksd_loader.img
+        SPI_LOADER=/usr/lib/u-boot-rockpi4b/rkspi_loader.img
+        BOARD=rockpi4b
+        ;;
+
     *)
         echo "Cannot detect board from $PACKAGE_NAME."
         exit 1
