@@ -18,10 +18,21 @@
 #include <asm/arch/periph.h>
 #include <asm/arch/timer.h>
 
+#define GRF_BASE		0xFF100000
+
 DECLARE_GLOBAL_DATA_PTR;
 
 void board_debug_uart_init(void)
 {
+}
+
+void board_init_sdmmc_pwr_en(void)
+{
+	struct rk3328_grf_regs * const grf = (void *)GRF_BASE;
+
+	rk_clrsetreg(&grf->gpio0d_iomux,
+		     GPIO0D6_SEL_MASK,
+		     GPIO0D6_SDMMC0_PWRENM1 << GPIO0D6_SEL_SHIFT);
 }
 
 void board_init_f(ulong dummy)
@@ -36,6 +47,7 @@ void board_init_f(ulong dummy)
 	}
 
 	preloader_console_init();
+	board_init_sdmmc_pwr_en();
 
 	ret = uclass_get_device(UCLASS_RAM, 0, &dev);
 	if (ret) {
