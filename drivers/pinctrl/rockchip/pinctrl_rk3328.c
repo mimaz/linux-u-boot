@@ -166,6 +166,7 @@ static void pinctrl_rk3328_sdmmc_config(struct rk3328_grf_regs *grf,
 {
 	u32 com_iomux = readl(&grf->com_iomux);
 
+		printf("pinctrl_rk3328_sdmmc_config\n");
 	switch (mmc_id) {
 	case PERIPH_ID_EMMC:
 		rk_clrsetreg(&grf->gpio0a_iomux,
@@ -180,6 +181,7 @@ static void pinctrl_rk3328_sdmmc_config(struct rk3328_grf_regs *grf,
 			     << GPIO3C0_SEL_SHIFT);
 		break;
 	case PERIPH_ID_SDCARD:
+		printf("PERIPH_ID_SDCARD\n");
 		/* SDMMC_PWREN use GPIO and init as regulator-fiexed  */
 		if (com_iomux & IOMUX_SEL_SDMMC_MASK)
 			rk_clrsetreg(&grf->gpio0d_iomux,

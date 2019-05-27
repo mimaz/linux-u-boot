@@ -96,11 +96,13 @@ int board_init(void)
 #define GRF_BASE	0xff100000
 	struct rk3328_grf_regs * const grf = (void *)GRF_BASE;
 
+	printf("board_init\n");
+
 	/* uart2 select m1, sdcard select m1*/
 	rk_clrsetreg(&grf->com_iomux,
 		     IOMUX_SEL_UART2_MASK | IOMUX_SEL_SDMMC_MASK,
 		     IOMUX_SEL_UART2_M1 << IOMUX_SEL_UART2_SHIFT |
-		     IOMUX_SEL_SDMMC_M1 << IOMUX_SEL_SDMMC_SHIFT);
+		     IOMUX_SEL_SDMMC_M0 << IOMUX_SEL_SDMMC_SHIFT);
 
 	ret = regulators_enable_boot_on(false);
 	if (ret)

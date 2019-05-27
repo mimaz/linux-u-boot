@@ -18,10 +18,44 @@
 #include <asm/arch/periph.h>
 #include <asm/arch/timer.h>
 
+#define GRF_BASE		0xFF100000
+
 DECLARE_GLOBAL_DATA_PTR;
 
 void board_debug_uart_init(void)
 {
+}
+
+void board_init_sdmmc_pwr_en(void)
+{
+	struct rk3328_grf_regs * const grf = (void *)GRF_BASE;
+
+	printf("board_init_sdmmc_pwr_en\n");
+
+	/* uart2 select m1, sdcard select m1*/
+	rk_clrsetreg(&grf->com_iomux,
+		     IOMUX_SEL_UART2_MASK | IOMUX_SEL_SDMMC_MASK,
+		     IOMUX_SEL_UART2_M1 << IOMUX_SEL_UART2_SHIFT |
+		     IOMUX_SEL_SDMMC_M1 << IOMUX_SEL_SDMMC_SHIFT);
+	
+	u32 com_iomux = readl(&grf->com_iomux);
+
+	if (com_iomux & IOMUX_SEL_SDMMC_MASK) {
+		rk_clrsetreg(&grf->gpio0d_iomux,
+						GPIO0D6_SEL_MASK,
+						GPIO0D6_GPIO << GPIO0D6_SEL_SHIFT);
+		printf("GPIO0D6_GPIO\n");
+	} else {
+		rk_clrsetreg(&grf->gpio2a_iomux,
+						GPIO2A7_SEL_MASK,
+						GPIO2A7_GPIO << GPIO2A7_SEL_SHIFT);
+		printf("GPIO2A7_GPIO\n");
+	}
+	rk_clrsetreg(&grf->gpio1a_iomux,
+					GPIO1A0_SEL_MASK,
+					GPIO1A0_CARD_DATA_CLK_CMD_DETN
+					<< GPIO1A0_SEL_SHIFT);
+		printf("GPIO1A0_CARD_DATA_CLK_CMD_DETN\n");
 }
 
 void board_init_f(ulong dummy)
@@ -36,6 +70,7 @@ void board_init_f(ulong dummy)
 	}
 
 	preloader_console_init();
+	board_init_sdmmc_pwr_en();
 
 	ret = uclass_get_device(UCLASS_RAM, 0, &dev);
 	if (ret) {

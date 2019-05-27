@@ -8,6 +8,7 @@ loader-boot: $(UBOOT_LOADERS) $(UBOOT_TPL) $(UBOOT_SPL)
 	./dev-make loader-download-mode
 	rkdeveloptool rid
 	dd if=/dev/zero of=$(UBOOT_OUTPUT_DIR)/clear.img count=1
+	sleep 3s
 	rkdeveloptool wl 64 $(UBOOT_OUTPUT_DIR)/clear.img
 	rkdeveloptool wl 512 $(UBOOT_OUTPUT_DIR)/u-boot.itb
 
