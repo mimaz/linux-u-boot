@@ -102,6 +102,16 @@ int board_init(void)
 		     IOMUX_SEL_UART2_M1 << IOMUX_SEL_UART2_SHIFT |
 		     IOMUX_SEL_SDMMC_M1 << IOMUX_SEL_SDMMC_SHIFT);
 
+	// TODO: hack me
+	rk_clrsetreg(&grf->gpio0d_iomux,
+		GPIO0D6_SEL_MASK,
+		GPIO0D6_GPIO << GPIO0D6_SEL_SHIFT);
+
+	rk_clrsetreg(&grf->gpio1a_iomux,
+		GPIO1A0_SEL_MASK,
+		GPIO1A0_CARD_DATA_CLK_CMD_DETN
+		<< GPIO1A0_SEL_SHIFT);
+
 	ret = regulators_enable_boot_on(false);
 	if (ret)
 		debug("%s: Cannot enable boot on regulator\n", __func__);
