@@ -47,11 +47,11 @@ def run_tests():
         suite = unittest.TestLoader().loadTestsFromTestCase(module)
         suite.run(result)
 
-    print result
+    print(result)
     for _, err in result.errors:
-        print err
+        print(err)
     for _, err in result.failures:
-        print err
+        print(err)
 
 if __name__ != '__main__':
     sys.exit(1)
